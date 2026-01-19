@@ -10,8 +10,16 @@ const getPantryPage = async (req, res) => {
   //   res.send(`User pantry page for ${req.session.user._id}`);
 };
 
-const renderFoodForm = (req, res) => {
+const renderNewFoodForm = (req, res) => {
   res.render("foods/new.ejs");
+};
+
+const renderEditFoodForm = async (req, res) => {
+  const currentUser = await User.findById(req.session.user._id);
+  const currentFood = currentUser.pantry.id(req.params.foodId);
+  res.render("foods/edit.ejs", {
+    currentFood,
+  });
 };
 
 const createFood = async (req, res) => {
@@ -29,4 +37,19 @@ const deleteFood = async (req, res) => {
   res.redirect("/foods");
 };
 
-module.exports = { getPantryPage, renderFoodForm, createFood, deleteFood };
+const updateFood = async (req, res) => {
+  const currentUser = await User.findById(req.session.user._id);
+  const pantry = currentUser.pantry;
+  pantry.id(req.params.foodId).set(req.body);
+  await currentUser.save();
+  res.redirect("/foods");
+};
+
+module.exports = {
+  getPantryPage,
+  renderNewFoodForm,
+  renderEditFoodForm,
+  createFood,
+  deleteFood,
+  updateFood,
+};

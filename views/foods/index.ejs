@@ -15,9 +15,10 @@
         <ul>
             <% for(let i = 0; i < pantry.length; i++){ %>
                 <li>
-                    <a href="/foods/<%= pantry[i]._id %>">
-                        <%= pantry[i].name %>
-                    </a>
+                    <!-- <a href="/foods/<%= pantry[i]._id %>"> -->
+                    <%= pantry[i].name %>
+                    <!-- </a> -->
+                     <a href="/foods/<%= pantry[i]._id%>/edit">Edit</a>
                     <form action="/foods/<%= pantry[i]._id %>?_method=DELETE" method="POST">
                         <button type="submit">Delete</button>
                     </form>
