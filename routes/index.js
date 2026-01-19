@@ -1,5 +1,7 @@
 const { Router } = require("express");
 const authRoutes = require("./auth.js");
+const foodRoutes = require("./foods.js");
+
 const isSignedIn = require("../middleware/is-signed-in.js");
 
 const router = Router();
@@ -14,5 +16,7 @@ router.get("/vip", isSignedIn, (req, res) => {
 });
 
 router.use("/auth", authRoutes);
+
+router.use("/foods", foodRoutes);
 
 module.exports = router;

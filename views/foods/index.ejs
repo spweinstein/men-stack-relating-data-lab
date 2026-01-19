@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Pantry</title>
+    <link rel="stylesheet" href="stylesheets/styles.css" />
+  </head>
+  <body>
+    <%- include('../partials/nav.ejs'); %>
+    <h1>Welcome to my Pantry</h1>
+    <a href="/foods/new">Add New Item</a>
+    <% if(pantry.length>0){ %>
+        <h2>Foods In Pantry:</h2>
+        <ul>
+            <% for(let i = 0; i < pantry.length; i++){ %>
+                <li>
+                    <a href="/foods/<%= pantry[i]._id %>">
+                        <%= pantry[i].name %>
+                    </a>
+                    <form action="/foods/<%= pantry[i]._id %>?_method=DELETE" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </li>
+            <% } %>
+        </ul>
+    <% } else { %>
+        <p>There are no foods in your pantry yet!</p>
+    <% } %>
+  </body>
+</html>
